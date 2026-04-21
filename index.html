@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Monthsary Letter</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial;
+  color: white;
+  background: radial-gradient(#ffb6c1, #1a001a);
+}
+
+/* 🔐 LOCK */
+#lockScreen {
+  position: absolute;
+  width: 100%;
+  top: 40%;
+  text-align: center;
+}
+
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+button {
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* 💌 ENVELOPE */
+#envelope {
+  display: none;
+  font-size: 80px;
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* 💖 CONTENT */
+#content {
+  display: none;
+  text-align: center;
+  padding: 30px;
+  animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+img {
+  width: 250px;
+  border-radius: 20px;
+  margin-top: 10px;
+  box-shadow: 0 0 20px pink;
+}
+
+#letter {
+  max-width: 600px;
+  margin: auto;
+  background: rgba(0,0,0,0.5);
+  padding: 15px;
+  border-radius: 15px;
+  text-align: left;
+  white-space: pre-line;
+}
+
+/* 💞 HEARTS */
+.heart {
+  position: absolute;
+  color: pink;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(-10%); opacity: 1; }
+  to { transform: translateY(110vh); opacity: 0; }
+}
+
+/* 🎵 HIDE VIDEO */
+#music {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔐 LOCK -->
+<div id="lockScreen">
+  <h2>🔐 Enter Password</h2>
+  <input type="password" id="password" placeholder="Enter code">
+  <br>
+  <button onclick="checkPassword()">Unlock</button>
+</div>
+
+<!-- 💌 ENVELOPE -->
+<div id="envelope" onclick="openLetter()">💌 Tap Envelope</div>
+
+<!-- 💖 CONTENT -->
+<div id="content">
+
+<h2>Happy Monthsary ❤️</h2>
+
+<img src="love.jpg">
+
+<div id="letter">
+
+hello my Jan Marat, happy monthsary my cutie pie.
+
+i’m really sorry if this is the only effort i could do for now, hehe. i honestly tried to be a programmer for you hahaha. thank you for loving me ❤️
+
+i miss you every day.
+
+we may be far but soon we will be together.
+
+i love you always ❤️
+
+</div>
+
+</div>
+
+<!-- 🎵 MP4 MUSIC (HIDDEN) -->
+<video id="music" loop>
+  <source src="Got%20to%20Believe%20in%20Magic.mp4" type="video/mp4">
+</video>
+
+<script>
+
+let correctPassword = "529000";
+
+function checkPassword() {
+  let input = document.getElementById("password").value;
+
+  if (input === correctPassword) {
+    document.getElementById("lockScreen").style.display = "none";
+    document.getElementById("envelope").style.display = "block";
+  } else {
+    alert("Wrong password 💔");
+  }
+}
+
+function openLetter() {
+  document.getElementById("envelope").style.display = "none";
+  document.getElementById("content").style.display = "block";
+
+  // 🎵 play mp4 audio
+  let audio = document.getElementById("music");
+  audio.volume = 0;
+  audio.play();
+
+  // fade in
+  let fade = setInterval(() => {
+    if (audio.volume < 0.9) audio.volume += 0.05;
+    else clearInterval(fade);
+  }, 200);
+
+  // 💞 hearts
+  setInterval(createHeart, 200);
+}
+
+function createHeart() {
+  let heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+}
+
+</script>
+
+</body>
+</html>
